@@ -7,7 +7,7 @@ Au Naturel is a LaTeX article template built on top of the standard article clas
 
 You can download the source [here](https://github.com/episanty/AuNaturel/archive/master.zip), or you can [see](https://github.com/episanty/TheYoungManTheStation/blob/master/AuNaturel.pdf) and [download](https://github.com/episanty/TheYoungManTheStation/raw/master/AuNaturel.pdf) the pdf file to see how it looks in more detail. For a starter, here is the first page:
 
-[<img src="https://github.com/episanty/AuNaturel/raw/master/AuNaturel.png" width="600" title="First page of the template">](https://github.com/episanty/TheYoungManTheStation/blob/master/AuNaturel.pdf)
+[<img src="https://github.com/episanty/AuNaturel/raw/master/AuNaturel.png" width="600" title="First page of the template">](https://github.com/episanty/AuNaturel/blob/master/AuNaturel.pdf)
 
 (Note that the border has been added for better visibility.)
 
