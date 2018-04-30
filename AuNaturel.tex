@@ -12,30 +12,28 @@
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb,upref}
-\usepackage{tgheros}
-\usepackage{tgtermes}
+\usepackage{tgheros} %% Main sans-serif font
+\usepackage{tgtermes} %% Main serif font
 \usepackage{anyfontsize}
 \usepackage{xcolor}
 \usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{subfig}
+\usepackage{siunitx}
 
-%\usepackage{unicode-math}
-%\setmainfont{TeX Gyre Termes}
-%\setsansfont{TeX Gyre Heros}
-%\setmonofont{TeX Gyre Cursor}
-%\setmathfont{TeX Gyre Termes Math}
-%%\setmathfont[range={\setminus}]{Asana Math}
+
+%\usepackage{flushend} %% don't use - there's some incompatibility somewhere
+\usepackage{balance}
 
 % Use accented characters
-%\usepackage[utf8]{inputenc}
-%\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
 
 %% slightly prettier date
 \usepackage{isodate}
 \cleanlookdateon
 
-%% Mainly useful at draft stage
-%\usepackage{showframe}
-\usepackage{lipsum}
+
 
 
 
@@ -52,13 +50,35 @@
 %% use as \lettrine[lines=3]{T}{\,} he
 
 
+%% Mainly useful at draft stage
+%\usepackage{showframe}
+\usepackage{lipsum}
+
+%\usepackage{draftwatermark}
+%\SetWatermarkText{draft}
+%\SetWatermarkScale{1}
+
+
+
+%%%% math font
+\usepackage{newtxmath}
+%\usepackage{mathptmx} % Greek letters slightly too heavy
+%% - http://www.gust.org.pl/projects/e-foundry/tg-math/download/index_html#Bonum_Math
+%% - https://md.ekstrandom.net/blog/2014/07/tex-modern-fonts/
+%% instead?
+
+
+
+
 \usepackage{geometry}
 \geometry{reset,ignoreall,
-  textheight=240mm,
-  textwidth=168mm,
-  bottom=25mm,
-  inner=21mm,
-  headheight=12.4pt
+  textheight=253mm,
+  textwidth=175mm,
+  bottom=21mm,
+  inner=17.5mm,
+  footskip=8mm,
+  headsep=5mm,
+  headheight=10pt
   }
 %\setlength{\parindent}{0em}
 %\setlength{\parskip}{0.6\baselineskip}
@@ -81,12 +101,14 @@
 \usepackage{titlesec}
 \titleformat{\section}[block]{\bfseries\upshape\sffamily\boldmath}{}{0.em}{}
 \titlespacing*{\section}{0pt}{0.8em plus 0ex minus 0ex}{0em plus 0.ex}
-%\titlespacing*{<command>}{<left>}{<before-sep>}{<after-sep>}
-%\titleformat{hcommandi}[hshapei]{hformati}{hlabeli}{hsepi}{hbefore-codei}[hafter-codei]
+
+
 
 \usepackage{titling}
 \setlength{\droptitle}{-12mm}
-\pretitle{\noindent\begin{minipage}{\textwidth} \raggedright\huge\bfseries\upshape\sffamily\boldmath}
+\pretitle{\noindent\begin{minipage}{\textwidth} \raggedright\huge\bfseries\upshape\sffamily\boldmath
+\color[rgb]{0,0,0.8}
+}
 \posttitle{\end{minipage} \vskip 0.6em}
 \preauthor{\noindent \begin{minipage}{\textwidth} \large\mdseries\sffamily}
 \postauthor{
@@ -104,6 +126,30 @@
   }
 \predate{ \noindent \hspace{-0.4em} \sffamily\small}
 \postdate{\vskip 0.0em}
+
+
+% Figure captions
+\usepackage{caption}
+\DeclareCaptionFont{cfs}{\fontsize{8.5}{10.25}\selectfont}
+\DeclareCaptionLabelSeparator{vline}{\;|\;}
+\captionsetup{
+ labelsep=vline, 
+ font={sf,cfs}, 
+ labelfont={cfs,bf},
+ belowskip=-12pt
+% belowskip=0pt
+ }
+%\captionsetup{labelsep=vline, font={sf,cfs}, labelfont={cfs,bf}, belowskip=-12pt}
+\newcommand{\figurecaption}[2]{\caption[#1]{\textbf{#1.} #2}}
+
+
+
+%\makeatletter
+%\edef\orig@output{\the\output}
+%\output{\setbox\@cclv\vbox{\unvbox\@cclv\vspace{0pt plus 20pt}}\orig@output}
+%\makeatother
+
+
 
 
 \usepackage{tcolorbox}
@@ -136,13 +182,22 @@
 
 %%% Bibliography
 \usepackage[numbers,sort&compress]{natbib}
-%% reduce spacing inside [1, 2]:
-\makeatletter \def\NAT@def@citea{\def\@citea{\NAT@separator\,}} \makeatother
+
+\makeatletter \def\NAT@def@citea{\def\@citea{\NAT@separator\,}} \makeatother % reduce spacing inside [1, 2].
+\setlength{\bibsep}{0pt plus 0.3ex} %reduce inter-line spacing in references.
+
+%%% Make bibtex more forgiving with underfull hboxes (as per tex.se/q/10924):
+\usepackage{etoolbox}
+\apptocmd{\sloppy}{\hbadness 10000\relax}{}{}
 
 %%% Specified referencers
 \newcommand{\citer}[1]{Ref.~\citealp{#1}}
 \newcommand{\citers}[1]{Refs.~\citealp{#1}}
 \newcommand{\reffig}[1]{Fig.~\ref{#1}}
+
+
+
+
 
 
 \usepackage[%
@@ -163,7 +218,6 @@ pdfkeywords={latex, article, class}
 }
 
 \title{Au Naturel: a LaTeX article template}
-%\title{Dynamical observations of self-stabilizing stationary light}
 \newcommand\shorttitle{Au Naturel}
 
 \author{Emilio Pisanty\textsuperscript{1$\,*$}}
@@ -177,7 +231,30 @@ pdfkeywords={latex, article, class}
 
 
 
+%%%%% Own commands
+%
+\usepackage{physics}
+%
+\renewcommand{\d}{\ensuremath{\textrm{d}}}
+\renewcommand{\Re}{\operatorname{Re}}
+\renewcommand{\Im}{\operatorname{Im}}
+%\newcommand{\vb}[1]{\mathbf{#1}}
+  \newcommand{\vbe}{\vb{E}}
+  \newcommand{\vbr}{\vb{r}}
+  
+  \newcommand{\tve}{\tilde{\vb{E}}}
 
+\newcommand{\ue}[1]{\hat{\vb{e}}_{#1}}
+
+
+\newcommand{\noheadersection}[1]{%
+  \par\refstepcounter{section}% Increase section counter
+  \sectionmark{#1}% Add section mark (header)
+  \addcontentsline{toc}{section}{\protect\numberline{\thesection}#1}% Add section to ToC
+}
+
+
+\usepackage{textcomp}
 
 \begin{document}
 
@@ -192,15 +269,19 @@ pdfkeywords={latex, article, class}
 Au Naturel is a LaTeX template built on top of the standard article class, roughly emulating some characteristics of the Nature Publishing Group journals.
 {
 \vskip 0.3em
-\normalfont \sffamily \footnotesize 
-© Emilio Pisanty (2016), available under the MIT license.
+\normalfont \sffamily 
+\textsf{\textcopyright}
+\footnotesize 
+Emilio Pisanty (2018), available under the MIT license.
 }
 \end{abstract}
 
+\vspace{-2mm}
 
 \end{@twocolumnfalse}
 ]
-\fontsize{9}{11}\selectfont
+%\fontsize{9}{11}\selectfont
+
 
 
 \section{Introduction}
@@ -215,27 +296,48 @@ This is another paragraph with more text just to show paragraph breaks. This is 
 
 
 \section{Here are some maths}
+Here is a paragraph with a couple of citations: a paper \cite{Schulman-phys-rev},  a book \cite{Schulman}, and a miscellaneous item~\cite{TomScott}.
+
 \lipsum[4]
 
-Here is a paragraph with a couple of citations: There is a paper \cite{Schulman-phys-rev}, as well as a book \cite{Schulman}, and the initial citation of some miscellaneous item~\cite{TomScott}.
 
 Here's an equation with a label, \eqref{first-equation} and there's more equations further down. So, we have
 \begin{equation}
 V(\mathbf{x}_A,\mathbf{x}_B)=V(\vec{x}_A,\vec{x}_B)=d^2\frac{r^2-2\lambda^2}{(r^2+\lambda^2)^{5/2}},
 \label{first-equation}
 \end{equation}
-being $d$ a letter, $\lambda$ a gathingammy $r$ a letter in $r=|\vec{x}_A-\vec{x}_B|=\sqrt{(x_A-x_B)^2+(y_A-y_B)^2}$, with  $A$, $B$  labels. Moreover $\Lambda=\lambda/a$, and  $\chi = a_{d}/\lambda = m_{eff}d^2/(\hbar^2 \lambda)$, with $m_\mathrm{eff}=\hbar^2/2ta^2$, and $t$, are more maths expressions. So are $k=\sqrt{k_x^2+k_y^2}$ and $V_\mathrm{latt}(\vec r)= V_0\left(\sin^2(k_x x)+ \sin^2(k_y y)\right))$, and a displayed equation is 
+being $d$ a letter, $\lambda$ a gathingammy, $r$ a letter in $r=|\vec{x}_A-\vec{x}_B|=\sqrt{(x_A-x_B)^2+(y_A-y_B)^2}$, with  $A$, $B$  labels. Moreover $\Lambda=\lambda/a$, and  $\chi = a_{d}/\lambda = m_{eff}d^2/(\hbar^2 \lambda)$, with $m_\mathrm{eff}=\hbar^2/2ta^2$, and $t$, are more maths expressions. So are $k=\sqrt{k_x^2+k_y^2}$ and $V_\mathrm{latt}(\vec r)= V_0\left(\sin^2(k_x x)+ \sin^2(k_y y)\right))$, and a displayed equation is 
 \begin{equation}
 \left(\hat{T}_A+\hat{T}_B+{\hat V}(\vec{x}_A,\vec{x}_B)\right)\Phi(\vec{x}_A,\vec{x}_B)=E\Phi(\vec{x}_A,\vec{x}_B).
 \end{equation}
 
-
 \lipsum[1]
+
 
 \begin{align}
 \partial_t \hat S(t,z) & = i\sqrt{d} \frac{\Gamma}{\Delta}\left( \Omega_+ \hat{\mathcal E}_+ + \Omega_- \hat{\mathcal E}_- \right) - \gamma \hat S \\
 \partial_z \hat{\mathcal E}_+ (t,z) & = i \sqrt{d} \frac{\Omega_+}{\Delta} \hat{S}
 \end{align}
+
+
+
+\begin{figure}[b]
+\centering
+%\includegraphics[width=0.4\textwidth]{}
+  \centering
+  \fbox{
+    \begin{minipage}[c][0.07\textheight][c]{0.4\textwidth}
+      \centering{figure placeholder}
+    \end{minipage}
+  }
+\label{fig-knot-table}
+\figurecaption{%
+Brief figure descrition%
+}{%
+Longer figure description.
+}
+\end{figure}
+
 
 
 \lipsum[1-3]
@@ -277,18 +379,35 @@ To round out the paper, we now include a bunch of Lorem Ipsum paragraphs, some m
 \section*{Acknowledgements}
 Here you thank all the people ever and everyone who ever gave you money.
 
-A path integral for spin. \textit{Phys. Rev.}
+%% To balance the columns on the last page.
+\balance
 
-%\singlespacing % for bibliography.
-%\setlength{\bibsep}{2.5mm}
-%\renewcommand\bibname{References}
 
-%% Add bibliography to TOC
-%\clearpage
-%\addcontentsline{toc}{chapter}{References}    
+
+%% Alternative bibliography style
+%% \bibliographystyle{naturemag}
+
 
 \bibliographystyle{arthur} 
 \bibliography{references}{}
+%% To get bibliography, as usual, run pdflatex -> bibtex -> pdflatex -> pdflatex.
 
+
+
+\hfill % hacky fix for a bad-box warning caused by the balance package.
 
 \end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
