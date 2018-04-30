@@ -1,0 +1,294 @@
+
+
+
+
+\documentclass[twoside,british,a4paper,twocolumn]{article}
+%%% Au Naturel
+%%% A LaTeX article template. See https://github.com/episanty/TheYoungManTheStation for more.
+%%% © Emilio Pisanty (2016), available under the MIT license.
+
+
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb,upref}
+\usepackage{tgheros}
+\usepackage{tgtermes}
+\usepackage{anyfontsize}
+\usepackage{xcolor}
+\usepackage{graphicx}
+
+%\usepackage{unicode-math}
+%\setmainfont{TeX Gyre Termes}
+%\setsansfont{TeX Gyre Heros}
+%\setmonofont{TeX Gyre Cursor}
+%\setmathfont{TeX Gyre Termes Math}
+%%\setmathfont[range={\setminus}]{Asana Math}
+
+% Use accented characters
+%\usepackage[utf8]{inputenc}
+%\usepackage[T1]{fontenc}
+
+%% slightly prettier date
+\usepackage{isodate}
+\cleanlookdateon
+
+%% Mainly useful at draft stage
+%\usepackage{showframe}
+\usepackage{lipsum}
+
+
+
+%% Fancy first letter
+\usepackage{lettrine}
+\pdfmapfile{=montserrat.map} 
+\renewcommand{\LettrineFont}{
+  \fontfamily{iwonal}\fontsize{42}{42}\selectfont %% Iwona Light
+%  \fontfamily{Montserrat-LF}\fontseries{l} \fontsize{42}{42}\selectfont %% Montserrat light
+%  \fontfamily{Montserrat-LF}\fontseries{l} \fontsize{41}{41}\selectfont %% Montserrat extralight ?
+%  \fontfamily{Chivo-TLF}\fontseries{l} \fontsize{42}{42}\selectfont %% Chivo light
+  \color[rgb]{0,0.25,0.8}
+  }
+%% use as \lettrine[lines=3]{T}{\,} he
+
+
+\usepackage{geometry}
+\geometry{reset,ignoreall,
+  textheight=240mm,
+  textwidth=168mm,
+  bottom=25mm,
+  inner=21mm,
+  headheight=12.4pt
+  }
+%\setlength{\parindent}{0em}
+%\setlength{\parskip}{0.6\baselineskip}
+
+
+\usepackage{fancyhdr}
+\renewcommand{\headrule}{}
+\renewcommand{\footrule}{}
+%
+\pagestyle{fancy}
+\fancyhead{}\fancyfoot{}
+\fancyhead[LE]{ \footnotesize\sffamily\upshape \shortauthor}
+\fancyhead[RO]{ \footnotesize\sffamily\upshape \shorttitle}
+\fancyfoot[LE,RO]{\sffamily\bfseries\upshape \thepage}
+%
+\fancypagestyle{firstpagestyle}
+\fancyhead{}\fancyfoot{}
+\fancyfoot[LE,RO]{\sffamily\bfseries\upshape \thepage}
+
+\usepackage{titlesec}
+\titleformat{\section}[block]{\bfseries\upshape\sffamily\boldmath}{}{0.em}{}
+\titlespacing*{\section}{0pt}{0.8em plus 0ex minus 0ex}{0em plus 0.ex}
+%\titlespacing*{<command>}{<left>}{<before-sep>}{<after-sep>}
+%\titleformat{hcommandi}[hshapei]{hformati}{hlabeli}{hsepi}{hbefore-codei}[hafter-codei]
+
+\usepackage{titling}
+\setlength{\droptitle}{-12mm}
+\pretitle{\noindent\begin{minipage}{\textwidth} \raggedright\huge\bfseries\upshape\sffamily\boldmath}
+\posttitle{\end{minipage} \vskip 0.6em}
+\preauthor{\noindent \begin{minipage}{\textwidth} \large\mdseries\sffamily}
+\postauthor{
+  \end{minipage} 
+  \vskip 0.4em
+  {
+   \sffamily
+   \color{black!80}
+   \noindent \small
+   \address
+   \par %\vskip -1.em
+   \authoremail
+   }
+   \par \vskip 0.4em
+  }
+\predate{ \noindent \hspace{-0.4em} \sffamily\small}
+\postdate{\vskip 0.0em}
+
+
+\usepackage{tcolorbox}
+\definecolor{abstractboxcolor}{cmyk}{0.1,0,0,0}
+\newtcolorbox{abstractbox}{
+  arc=0pt,
+  boxrule=0pt,
+  colback=abstractboxcolor,
+  boxsep=0.5em,
+  left=0pt, right=0pt, bottom=0pt, top=0pt,
+  width=\columnwidth
+}
+%
+%%% To avoid some bad box warnings, as per tex.se/q/62296/
+\makeatletter
+ \def\@textbottom{\vskip \z@ \@plus 1pt}
+ \let\@texttop\relax
+\makeatother
+%
+\renewenvironment{abstract}{
+   \noindent
+   \begin{minipage}{\textwidth}
+   \upshape\sffamily \bfseries
+   \fontsize{9}{11.5}\selectfont
+  }{
+   \end{minipage} 
+   \vskip 2.0em
+  }
+
+
+%%% Bibliography
+\usepackage[numbers,sort&compress]{natbib}
+%% reduce spacing inside [1, 2]:
+\makeatletter \def\NAT@def@citea{\def\@citea{\NAT@separator\,}} \makeatother
+
+%%% Specified referencers
+\newcommand{\citer}[1]{Ref.~\citealp{#1}}
+\newcommand{\citers}[1]{Refs.~\citealp{#1}}
+\newcommand{\reffig}[1]{Fig.~\ref{#1}}
+
+
+\usepackage[%
+  bookmarks=true,
+  colorlinks,
+  linkcolor=blue,
+  urlcolor=blue,
+  citecolor=blue,
+  plainpages=false,
+  pdfpagelabels,
+  final,
+  breaklinks=true
+]{hyperref}
+\hypersetup{
+pdftitle={Au Naturel: a LaTeX article template}, 
+pdfauthor={Emilio Pisanty},
+pdfkeywords={latex, article, class}
+}
+
+\title{Au Naturel: a LaTeX article template}
+%\title{Dynamical observations of self-stabilizing stationary light}
+\newcommand\shorttitle{Au Naturel}
+
+\author{Emilio Pisanty\textsuperscript{1$\,*$}}
+\newcommand\shortauthor{E. Pisanty}
+
+\newcommand\address{\textsuperscript{1}ICFO -- The Institute of Photonic Sciences, Barcelona, Spain}
+\newcommand\authoremail{$^*$author@email.com}
+
+\date{ \today }
+
+
+
+
+
+
+\begin{document}
+
+\twocolumn[
+\begin{@twocolumnfalse}
+
+\maketitle
+\thispagestyle{firstpagestyle}
+
+\begin{abstract}
+%\textit{Au Naturel} is a LaTeX template built on top of the standard \verb|article| class.
+Au Naturel is a LaTeX template built on top of the standard article class, roughly emulating some characteristics of the Nature Publishing Group journals.
+{
+\vskip 0.3em
+\normalfont \sffamily \footnotesize 
+© Emilio Pisanty (2016), available under the MIT license.
+}
+\end{abstract}
+
+
+\end{@twocolumnfalse}
+]
+\fontsize{9}{11}\selectfont
+
+
+\section{Introduction}
+\lettrine[lines=3, lhang=0.15]{T}{\:} his
+is a paragraph with some text at the start of the article. This is just a sample but it has some mathematics like $x=y^2 +A_\mathrm{eff}$ and something else like $\hat{V}_\mathsf{L} = \sum_j \mathbf{r}_j^k$. Then it just starts repeating itself. This is a paragraph with some text at the start of the article. Then it just starts repeating itself. This is just a sample but it has some mathematics like $\chi = a_{d} \xi \zeta/\lambda = m_\mathrm{eff}d^2/(\hbar^2 \lambda)$ and something else like $r=|\vec{x}_A-\vec{x}_B|=\sqrt{(x_A-x_B)^2+(y_A-y_B)^2}$ or $d  \mathopen{}\left(  p+A(t)  \right)\mathclose{}  ^*$ . Then it just starts repeating itself.
+
+This is another paragraph with more text just to show paragraph breaks. This is really just filler text but to be honest including a whole paragraph of Lorem Ipsum here seemed a bit too much. So instead here is a bit of filler text to flesh out the paragraph a bit.
+
+
+
+
+
+
+\section{Here are some maths}
+\lipsum[4]
+
+Here is a paragraph with a couple of citations: There is a paper \cite{Schulman-phys-rev}, as well as a book \cite{Schulman}, and the initial citation of some miscellaneous item~\cite{TomScott}.
+
+Here's an equation with a label, \eqref{first-equation} and there's more equations further down. So, we have
+\begin{equation}
+V(\mathbf{x}_A,\mathbf{x}_B)=V(\vec{x}_A,\vec{x}_B)=d^2\frac{r^2-2\lambda^2}{(r^2+\lambda^2)^{5/2}},
+\label{first-equation}
+\end{equation}
+being $d$ a letter, $\lambda$ a gathingammy $r$ a letter in $r=|\vec{x}_A-\vec{x}_B|=\sqrt{(x_A-x_B)^2+(y_A-y_B)^2}$, with  $A$, $B$  labels. Moreover $\Lambda=\lambda/a$, and  $\chi = a_{d}/\lambda = m_{eff}d^2/(\hbar^2 \lambda)$, with $m_\mathrm{eff}=\hbar^2/2ta^2$, and $t$, are more maths expressions. So are $k=\sqrt{k_x^2+k_y^2}$ and $V_\mathrm{latt}(\vec r)= V_0\left(\sin^2(k_x x)+ \sin^2(k_y y)\right))$, and a displayed equation is 
+\begin{equation}
+\left(\hat{T}_A+\hat{T}_B+{\hat V}(\vec{x}_A,\vec{x}_B)\right)\Phi(\vec{x}_A,\vec{x}_B)=E\Phi(\vec{x}_A,\vec{x}_B).
+\end{equation}
+
+
+\lipsum[1]
+
+\begin{align}
+\partial_t \hat S(t,z) & = i\sqrt{d} \frac{\Gamma}{\Delta}\left( \Omega_+ \hat{\mathcal E}_+ + \Omega_- \hat{\mathcal E}_- \right) - \gamma \hat S \\
+\partial_z \hat{\mathcal E}_+ (t,z) & = i \sqrt{d} \frac{\Omega_+}{\Delta} \hat{S}
+\end{align}
+
+
+\lipsum[1-3]
+
+Other displayed equations are
+\begin{equation}
+(\vec{\xi}_{\vec{K}}\cdot\vec{\hat{T}}_D+V(\vec{r}))\psi(\vec{r})=E\psi(\vec{r}),
+\end{equation}
+where $\vec{\xi }_{\vec{K}}=-2t(\cos(K_x a/2),\cos(K_y a/2))$ is some object, and  $\vec{\hat{I}}\cdot\vec{\hat{T}}_D\psi(\vec{r})=\sum_{i=x,y}\left(\psi(\vec{r}+\vec{\delta}_i)+\psi(\vec{r}-\vec{\delta}_i)\right)$, where $\vec{\delta}_i=a\hat{e}_{i}$, and also
+\begin{equation}
+\psi(\vec{r})=\frac{1}{N_x N_y}\sum_{\vec{q}}\psi(\vec{q})e^{i\vec{q}\cdot\vec{r}}.
+\end{equation}
+Here's a little bit of text to round out the paragraph after the equation and (probably) round out the page, so this needs to be a couple of lines long.
+
+Here some text: \lipsum[7] 
+
+Some text, then some more equations: these ones are
+$$
+E_{\vec{K},\vec{q}}=-4t\left(\cos(K_xa/2)\cos(q_xa)+\cos(K_ya/2)\cos(q_ya)\right)
+$$ 
+and 
+\begin{equation}
+(E-E_{\vec{K},\vec{q}})\psi(\vec{q})=\sum_{\vec{q'}}V(\vec{q}-\vec{q'})\psi(\vec{q'}). 
+\end{equation}
+To round out the paper, we now include a bunch of Lorem Ipsum paragraphs, some more math, more filler text, and call it a day.
+
+\lipsum[1-2]
+
+
+\section{More filler text}
+
+\lipsum[1-6]
+
+\section{Conclusions}
+
+\lipsum[11-12]
+
+
+\section*{Acknowledgements}
+Here you thank all the people ever and everyone who ever gave you money.
+
+A path integral for spin. \textit{Phys. Rev.}
+
+%\singlespacing % for bibliography.
+%\setlength{\bibsep}{2.5mm}
+%\renewcommand\bibname{References}
+
+%% Add bibliography to TOC
+%\clearpage
+%\addcontentsline{toc}{chapter}{References}    
+
+\bibliographystyle{arthur} 
+\bibliography{references}{}
+
+
+\end{document}
